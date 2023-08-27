@@ -1,10 +1,5 @@
-interface Ticket {
-  id: number;
-  title: string;
-  body: string;
-  priority: "low" | "medium" | "high";
-  user_email: string;
-}
+import Link from "next/link";
+import { Ticket } from "../types";
 
 // NOTE: all this fetch logic is going to run on the server because this is a server-side rendered page
 async function getTickets() {
@@ -26,11 +21,13 @@ export default async function TicketList() {
     <>
       {tickets.map((ticket: Ticket) => (
         <div key={ticket.id} className='card my-5'>
-          <h3>{ticket.title}</h3>
-          <p>{ticket.body.slice(0, 200)}...</p>
-          <div className={`pill ${ticket.priority}`}>
-            {ticket.priority} priority
-          </div>
+          <Link href={`/tickets/${ticket.id}`}>
+            <h3>{ticket.title}</h3>
+            <p>{ticket.body.slice(0, 200)}...</p>
+            <div className={`pill ${ticket.priority}`}>
+              {ticket.priority} priority
+            </div>
+          </Link>
         </div>
       ))}
       {tickets.length === 0 && (
