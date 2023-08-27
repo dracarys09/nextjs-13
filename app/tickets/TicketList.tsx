@@ -4,6 +4,9 @@ import { Ticket } from "../types";
 // NOTE: all this fetch logic is going to run on the server because this is a server-side rendered page
 // setting the revalidate to 0 will prevent the nextjs from doing static rendering of this page
 async function getTickets() {
+  // imitate delay of 3 seconds
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const res = await fetch("http://localhost:4000/tickets", {
     next: {
       // revalidate: 30, // revalidate every 30 seconds

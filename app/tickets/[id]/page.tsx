@@ -15,6 +15,10 @@ interface TicketDetailsProps {
 export const generateStaticParams = async () => {
   const res = await fetch("http://localhost:4000/tickets");
   const tickets = await res.json();
+  // return tickets.map((ticket: Ticket) => ({
+  //   id: ticket.id,
+  // }));
+
   return tickets.map((ticket: Ticket) => ({
     params: {
       id: ticket.id.toString(),
@@ -23,6 +27,9 @@ export const generateStaticParams = async () => {
 };
 
 const getTicket = async (id: string) => {
+  // imitate delay of 3 seconds
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const res = await fetch(`http://localhost:4000/tickets/${id}`, {
     next: {
       revalidate: 60,

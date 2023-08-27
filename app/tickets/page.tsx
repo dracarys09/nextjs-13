@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import TicketList from "./TicketList";
+import Loading from "../loading";
 
 export default function Tickets() {
   return (
@@ -11,7 +13,12 @@ export default function Tickets() {
           </p>
         </div>
       </nav>
-      <TicketList />
+
+      {/* Wrapping with Suspense will result Nav component to show as it is 
+      and only TicketList component to show loading status */}
+      <Suspense fallback={<Loading />}>
+        <TicketList />
+      </Suspense>
     </main>
   );
 }
